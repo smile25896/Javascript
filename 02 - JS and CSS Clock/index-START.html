@@ -5,20 +5,48 @@
   <title>JS + CSS Clock</title>
 </head>
 <body>
-
-
     <div class="clock">
       <div class="clock-face">
+        <div class="circle"></div>
         <div class="hand hour-hand"></div>
         <div class="hand min-hand"></div>
         <div class="hand second-hand"></div>
       </div>
     </div>
 
+<script>
+  getTime();
+  setClock();
+  setInterval(setClock, 1000);
+
+  var hourDeg;
+  var minDeg;
+  var secDeg;
+
+  function getTime(){
+    var date = new Date;
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+    hourDeg = (hour%12)*30+90;
+    minDeg = min*6+90;
+    secDeg = sec*6+90;
+  }
+
+  function setClock(){
+    console.log(new Date);
+    hourDeg += 30*(1/3600);
+    minDeg += 6*(1/60);
+    secDeg += 6;
+    document.querySelector(".hour-hand").style.transform = `rotate(${hourDeg}deg)`;
+    document.querySelector(".min-hand").style.transform = `rotate(${minDeg}deg)`;
+    document.querySelector(".second-hand").style.transform = `rotate(${secDeg}deg)`;
+  }
+</script>
 
   <style>
     html {
-      background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+      background:#018DED url(background.jpg);
       background-size:cover;
       font-family:'helvetica neue';
       text-align: center;
@@ -42,6 +70,7 @@
       margin:50px auto;
       position: relative;
       padding:2rem;
+      background-color: rgba(0, 0, 0, 0.5);
       box-shadow:
         0 0 0 4px rgba(0,0,0,0.1),
         inset 0 0 0 3px #EFEFEF,
@@ -56,19 +85,48 @@
       transform: translateY(-3px); /* account for the height of the clock hands */
     }
 
-    .hand {
-      width:50%;
-      height:6px;
-      background:black;
+    .circle{
       position: absolute;
-      top:50%;
+      height: 20px;
+      width: 20px;
+      left: calc(50% - 10px);
+      top: calc(50% - 10px);
+      border-radius: 10px;
+      background-color: #abccca;
+      z-index: 1;
+    }
+
+    .hand {
+      transition: transform 1s linear;
+      background:white;
+      position: absolute;
+      transform-origin: right;
+      /*transform: rotate(0deg)*/
+    }
+
+    .hour-hand{
+      width:40%;
+      left: 10%;
+      height: 8px;
+      top: calc(50% - 4px);
+      border-radius: 8px 0px 0px 8px;
+    }
+
+    .min-hand{
+      width:45%;
+      left: 5%;
+      height: 4px;
+      top: calc(50% - 2px);
+      border-radius: 4px 0px 0px 4px;
+    }
+
+    .second-hand{
+      width:50%;
+      height: 2px;
+      top: calc(50% - 1px);
     }
 
   </style>
 
-  <script>
-
-
-  </script>
 </body>
 </html>
