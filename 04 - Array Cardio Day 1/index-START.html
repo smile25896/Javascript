@@ -31,17 +31,32 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const fifteen = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year < 1600));
+    console.table(fifteen);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+    console.log(fullNames);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const orderd = inventors.sort((inventor1, inventor2) => (inventor1.year-inventor2.year));
+    console.table(orderd);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    const totalYears = inventors.reduce((sum, inventor) => (sum+inventor.passed-inventor.year),0);
+    console.log(totalYears);
 
     // 5. Sort the inventors by years lived
+    const orderd2 = inventors.sort((inventor1, inventor2) => {
+      const lived1 = inventor1.passed-inventor1.year;
+      const lived2 = inventor2.passed-inventor2.year;
+      return lived1 < lived2 ? 1 : -1;
+    });
+    
+    console.table(orderd2);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -49,10 +64,26 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const orderd3 = people.sort((pA, pB) => {
+      const [aLast, aFirst] = pA.split(', ');
+      const [bLast, bFirst] = pB.split(', ');
+      // console.log(aLast + " " + bLast);
+      return aLast > bLast ? 1 : -1;
+    });
+    console.log(orderd3);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    //const totalYears = inventors.reduce((sum, inventor) => (sum+inventor.passed-inventor.year),0);
+    const count = data.reduce((sum, item) => {
+      if(!sum[item]){
+        sum[item] = 0;
+      }
+      sum[item]++;
+      return sum;
+    }, {});
+    console.log(count);
 
   </script>
 </body>
