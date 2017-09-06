@@ -7,6 +7,63 @@
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
+const canvas = document.querySelector('#draw');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+const ctx = canvas.getContext('2d');
+// ctx.beginPath();
+// ctx.lineWidth="5";
+// ctx.strokeStyle="red";
+// ctx.moveTo(0,70);
+// ctx.lineTo(250, 88);
+// ctx.lineTo(250, 30);
+// ctx.stroke();
+let isMousedown = false;
+let hue = 0;
+let lineWidth = 5;
+let isWidthAdd = true;
+let startX, startY;
+
+function startPaint(event){
+	isMousedown = true;
+	startX = event.x;
+	startY = event.y;
+}
+
+function paint(event){
+	if(!isMousedown) return;
+	ctx.beginPath();
+	ctx.lineCap="round";
+	ctx.lineWidth=lineWidth;
+	ctx.strokeStyle= `hsl(${hue}, 100%, 60%)`;
+	ctx.moveTo(startX, startY);
+	ctx.lineTo(event.x, event.y);
+	ctx.stroke();
+	startX = event.x;
+	startY = event.y;
+	hue = (hue+1)%360;
+
+	if(lineWidth >= 30){
+		isWidthAdd = false;
+	}else if(lineWidth <= 5){
+		isWidthAdd = true;
+	}
+	if(isWidthAdd){
+		lineWidth++;
+	}
+	else{
+		lineWidth--;
+	}
+}
+
+function endPaint(){
+	isMousedown = false;
+}
+
+window.addEventListener("mousedown", startPaint, false);
+window.addEventListener("mousemove", paint, false);
+window.addEventListener("mouseup", endPaint, false);
+
 </script>
 
 <style>
