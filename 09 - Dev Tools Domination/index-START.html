@@ -18,28 +18,71 @@
     }
 
     // Regular
+    console.log('hello');
 
     // Interpolated
+    console.log("Hello! I'm a %s. I'm integer: %d", "💩", 100);
 
     // Styled
+    console.log("%c style", "color: #0088cc; font-size: 3em;");
 
     // warning!
+    console.warn("I'm warn! oAo");
 
     // Error :|
+    console.error("I'm error! QAQ")
 
     // Info
+    console.info("I'm info! :)");
 
     // Testing
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('ouch'), 'That is wrong!');
+    //接受一个表达式作为参数，如果参数返回值是 false，则会输出第二个参数中的内容。
 
     // clearing
+    console.clear();
 
     // Viewing DOM Elements
+    console.log(p);
+    console.dir(p);
 
     // Grouping together
+    console.table(dogs);
+    console.table(dogs, ['age'])
+    console.clear();
+
+    dogs.forEach(dog => {
+      console.group(`${dog.name}`);
+      console.log(`name: ${dog.name}`);
+      console.log(`age: ${dog.age}`);
+      console.groupEnd(`${dog.name}`);
+    });
 
     // counting
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Steve');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Steve');
+    console.count('Steve');
+    console.count('Steve');
+    console.count('Steve');
 
     // timing
+    console.time('fetch my data');
+    fetch("https://api.github.com/users/soyaine")
+      .then(data => data.json())
+      .then(data => {
+      console.timeEnd('fetch my data');
+      console.log(data);
+    });
+
+    console.log('-------------------------')
 
   </script>
 </body>
