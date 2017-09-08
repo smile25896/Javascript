@@ -99,6 +99,50 @@
   </div>
 
 <script>
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  checkboxes.forEach( checkbox => {
+    checkbox.addEventListener('click', clickCheckbox2);
+  });
+  let preCheckbox = null;
+  let isBetween = false;
+
+  function clickCheckbox2(e){
+    if(e.shiftKey == true && preCheckbox!=null){
+      checkboxes.forEach( checkbox => {
+        if(checkbox === this || checkbox == preCheckbox){
+          isBetween = !isBetween;
+        }
+        if(isBetween){
+          checkbox.checked = preCheckbox.checked;
+        }
+      });
+    }
+    preCheckbox = this;
+  }
+
+  function clickCheckbox(e){
+    if(e.shiftKey == true && preCheckbox!=null){
+      let indexNow;
+      let indexPre;
+      checkboxes.forEach((checkbox, index) => {
+        if(checkbox == this) indexNow = index;
+      });
+      checkboxes.forEach((checkbox, index) => {
+        if(checkbox == preCheckbox) indexPre = index;
+      });
+      if(indexNow < indexPre){
+        for(let i=indexNow; i<indexPre+1; i++){
+          checkboxes[i].checked = this.checked;
+        }
+      }
+      else{
+        for(let i=indexPre; i<indexNow+1; i++){
+          checkboxes[i].checked = this.checked;
+        }
+      }
+    }
+    preCheckbox = this;
+  }
 </script>
 </body>
 </html>
