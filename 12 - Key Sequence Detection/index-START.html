@@ -7,6 +7,23 @@
 </head>
 <body>
 <script>
+let pressed = [];
+const secretCode = 'cnacna';
+
+window.addEventListener('keyup', e => {
+	if(pressed.length >= secretCode.length){
+		pressed = pressed.slice(1);
+		pressed.push(e.key);
+	}else{
+		pressed.push(e.key);
+	}
+	let match = true;
+	if(pressed.join('').includes(secretCode)){
+		console.log('YESSSSSSSSS');
+		cornify_add();
+	}
+	console.log(pressed);
+});
 </script>
 </body>
 </html>
